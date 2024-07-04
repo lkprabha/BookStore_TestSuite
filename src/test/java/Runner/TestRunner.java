@@ -1,24 +1,37 @@
 package Runner;
 
+import ClassFiles.AllPageNavigator;
+import ClassFiles.WebDriverFactory;
+import Utility.PropertyFileHandler;
+import Utility.WebDriverHelper;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InterruptedIOException;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = {"src/test/java/FeatureFiles"},
         plugin= {"pretty","html:target/cucumber.html","json:target/cucumber.json"},
         glue = {"StepDef"})
 public class TestRunner {
+        public static Object WebDriverFactory ;
+        public static WebDriverFactory newHelper = new WebDriverFactory();
+        public static AllPageNavigator newHomePage= new AllPageNavigator();
 
-  //  public static WebDriver mydriver= new FirefoxDriver();
-   //public static void main(String[] args){
+        public static void main(String[] args) throws InterruptedIOException, FileNotFoundException, IOException {
+                PropertyFileHandler.getPropertyFileHandler();
+                PropertyFileHandler.loadPropertyFile("src/test/resources/TestData/data.properties");
+                WebDriverHelper.startDriver("browser","url");
 
-     //  System.setProperty("webdriver.geko.driver","src/test/resources/GekoDriver/gekodriver.exe");
-     //  mydriver.get("http://localhost:1001/");
+                //  Test cases goes here
 
-   // }
+                //SignIn.TestCase1();
+
+
+        }
 
 
 }

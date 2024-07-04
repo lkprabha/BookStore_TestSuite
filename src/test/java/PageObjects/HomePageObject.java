@@ -1,24 +1,18 @@
 package PageObjects;
 
-import ClassFiles.AllPageNavigator;
 import ClassFiles.WebDriverFactory;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 
 public class HomePageObject {
     public static WebDriver driver = WebDriverFactory.createFirefoxDriver();
-  //  public static AllPageNavigator pageNav= new AllPageNavigator();
     public void GotoHome(){
-       // pageNav.GotoHomePage();
         try{
             // Navigate to a web page
             driver.get ("http://localhost:1001/");
@@ -55,9 +49,5 @@ public class HomePageObject {
             driver.quit();
             throw(e);
         }
-
     }
-
-
-
 }

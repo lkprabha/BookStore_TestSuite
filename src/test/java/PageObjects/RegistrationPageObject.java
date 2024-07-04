@@ -15,7 +15,6 @@ public class RegistrationPageObject {
 
     public void CheckTitle(String title){
               homepage.CheckTitle(title);
-
     }
 
     public void EnterBook(String name){

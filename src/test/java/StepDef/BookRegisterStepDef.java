@@ -15,26 +15,18 @@ public class BookRegisterStepDef {
     public void userIsNavigateToHomePageTitle(String title1)throws Throwable {
         homePage.GotoHome();
         homePage.CheckTitle(title1);
-     //   System.out.println("Im inside : StepDef- Home page: Passing para title1: "+title1);
-
     }
-//    @And("User click New Book Register")
-//    public void userClickNewBookRegister() {
-//        homePage.NavigatePageBookRegister();
-//    }
 
     @And("^User see the Registration page (.+)$")
     public void userSeeTheRegistrationPageTitle(String tilte2)throws Throwable {
        homePage.NavigatePageBookRegister();
         homePage.CheckTitle(tilte2);
-       // System.out.println("Im inside : StepDef- RegPage: Passing para title2: "+tilte2);
-
     }
 
     @And("^User enter the book Name (.+)$")
     public void userEnterTheBookNameName(String name) {
-       // System.out.println("Im inside : StepDef-Enter Book  : Passing para title2: "+name);
-        registrationPage.EnterBook(name);}
+        registrationPage.EnterBook(name);
+    }
 
     @And("^User enter name of the Author (.+)$")
     public void userEneterNameOfTheAuthorAuthor(String author) {
@@ -50,6 +42,7 @@ public class BookRegisterStepDef {
     public void userPressSubmitButton() {
         registrationPage.PressSubmitButton();
     }
+
     @Then("User sees the available books page (.+)")
     public void userSeesTheAvailableBooksPageTitle(String title3) {
         homePage.CheckTitle(title3);
