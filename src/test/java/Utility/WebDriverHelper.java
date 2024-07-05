@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,21 +12,29 @@ public class WebDriverHelper {
 
     static WebDriver driver;
 
-    public static WebDriver startDriver(String browserName, String url) {
-        WebDriverManager.chromedriver().setup();
-        if (PropertyFileHandler.readProperty(browserName).equalsIgnoreCase("chrome")) {
+    public static void startDriver(String browserName, String url) {
+
+        String browser = PropertyFileHandler.readProperty(browserName);
+        String targetUrl = PropertyFileHandler.readProperty(url);
+
+        System.out.println("Inside the startup driver Browser: "+ browser);
+        System.out.println("Inside the startup driver Browser: "+ targetUrl);
+
+        if (browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
-        }
-        else if(PropertyFileHandler.readProperty(browserName).equalsIgnoreCase("firefox")) {
+        } else if (browser.equalsIgnoreCase("firefox") || browser.equalsIgnoreCase("geckodriver")) {
             WebDriverManager.firefoxdriver().setup();
+            FirefoxOptions options =new FirefoxOptions();
+            options.setBinary("/Applications/Firefox.app/Contents/MacOS/firefox"); // Path to Firefox binary
             driver = new FirefoxDriver();
+        } else {
+            throw new IllegalArgumentException("Browser not supported: " + browser);
         }
 
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.get(PropertyFileHandler.readProperty(url));
-        return driver;
     }
 
     public static WebDriver getWebDriver(){
@@ -33,12 +42,13 @@ public class WebDriverHelper {
     }
 
     public static void closeWebDriver(){
-        driver.close();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     public static String getUrl() throws InterruptedException {
         Thread.sleep(4000);
-        String url = driver.getCurrentUrl();
-        return url;
+        return driver.getCurrentUrl();
     }
 }

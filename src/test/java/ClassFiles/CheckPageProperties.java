@@ -1,12 +1,11 @@
-package PageObjects;
+package ClassFiles;
 
 import Utility.WebDriverHelper;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
-public class AvailableBooksPageObject {
-    WebDriver driver= WebDriverHelper.getWebDriver();
-
+public class CheckPageProperties {
+    WebDriver driver=WebDriverHelper.getWebDriver();
 
     public void CheckTitle(String title){
         try{
@@ -19,6 +18,4 @@ public class AvailableBooksPageObject {
             throw(e);
         }
     }
-
-
 }

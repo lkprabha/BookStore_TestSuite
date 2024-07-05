@@ -14,6 +14,7 @@ public class PropertyFileHandler {
     }
     //This method is to return the PropertyFileHandler object
     public static PropertyFileHandler getPropertyFileHandler() {
+        System.out.println("Inside the Property object making");
         if (propertyFileHandler == null) {
             propertyFileHandler = new PropertyFileHandler();
         }
@@ -21,11 +22,12 @@ public class PropertyFileHandler {
     }
     //This method is to load the property file
     public static void loadPropertyFile(String path) throws FileNotFoundException, IOException {
-        System.out.println("Property File has been loaded");
+        System.out.println("Property File has been loaded path: "+ path);
         Prop.load(new FileInputStream(path));
     }
     //This method is used to read the property file.
     public static String readProperty(String key) {
+        System.out.println("Reading Property File : "+ key);
         return Prop.getProperty(key);
     }
     //This method is used to write to the property file.

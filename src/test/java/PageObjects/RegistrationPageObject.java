@@ -1,21 +1,45 @@
 package PageObjects;
 
-import ClassFiles.WebDriverFactory;
+
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-
-import static PageObjects.HomePageObject.driver;
+import  Utility.WebDriverHelper;
 
 public class RegistrationPageObject {
-    public static HomePageObject homepage= new HomePageObject();
+    WebDriver driver=WebDriverHelper.getWebDriver();
 
-    public void CheckTitle(String title){
-              homepage.CheckTitle(title);
+    public void NavigatePageBookRegister(){
+        try {
+            System.out.println("InsideRegistration page object!");
+            WebDriverWait mywait= new WebDriverWait(driver, Duration.ofSeconds(1000));
+            mywait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"navbarSupportedContent\"]/div/a")));
+            WebElement bookRegiterLink = driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/div/a"));
+            bookRegiterLink.click();
+        }
+        catch (Exception e){
+            System.out.println("Page not loaded: Exception");
+            throw(e);
+        }
+
     }
+    public void CheckTitle(String title){
+        try{
+            String gotTitle= driver.getTitle();
+            Assert.assertEquals(title,driver.getTitle());
+        }
+        catch(Exception e){
+            System.out.println("Page not loaded: Exception");
+            driver.quit();
+            throw(e);
+        }
+    }
+
 
     public void EnterBook(String name){
         try {
