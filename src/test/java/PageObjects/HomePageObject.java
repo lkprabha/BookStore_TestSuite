@@ -1,5 +1,6 @@
 package PageObjects;
 
+import PageFactory.WebPageFactory;
 import Utility.WebDriverHelper;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -19,4 +20,14 @@ public class HomePageObject {
             throw(e);
         }
     }
+    public void NavigateTo_AvailableBooksPage(){
+        WebPageFactory.wpf.HomePage_AvailableBooksTab.click();
+    }
+    public void NavigateTo_MyBooksPage(){
+        WebPageFactory.wpf.HomePage_MyBooksTab.click();
+    }
+    public void NavigateTo_NewBookRegisterPage(){
+        WebPageFactory.wpf.RegistrationTabWebElement.click();
+    }
+
 }

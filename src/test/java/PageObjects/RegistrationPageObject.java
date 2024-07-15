@@ -1,67 +1,52 @@
 package PageObjects;
-
-
-import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration; i'm in adv-01'
 import  Utility.WebDriverHelper;
+import PageFactory.WebPageFactory;
 
 public class RegistrationPageObject {
-    WebDriver driver=WebDriverHelper.getWebDriver();
+
+    WebDriver driver = WebDriverHelper.getWebDriver();
 
     public void NavigatePageBookRegister(){
         try {
-            System.out.println("InsideRegistration page object!");
-            WebDriverWait mywait= new WebDriverWait(driver, Duration.ofSeconds(1000));
-            mywait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"navbarSupportedContent\"]/div/a")));
-            WebElement bookRegiterLink = driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/div/a"));
-            bookRegiterLink.click();
-        }
+                WebPageFactory.wpf.RegistrationTabWebElement.click();
+         }
         catch (Exception e){
             System.out.println("Page not loaded: Exception");
             throw(e);
         }
 
     }
-    public void CheckTitle(String title){
+    public void CheckTitle(String title_HomePage){
         try{
-            String gotTitle= driver.getTitle();
-            Assert.assertEquals(title,driver.getTitle());
+            WebPageFactory.wpf.HomePageTitle.getText();
         }
         catch(Exception e){
             System.out.println("Page not loaded: Exception");
-            driver.quit();
             throw(e);
         }
     }
 
 
-    public void EnterBook(String name){
+    public void EnterBook(String bookName){
         try {
-            WebDriverWait mywait= new WebDriverWait(driver, Duration.ofSeconds(200));
-            mywait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[1]/form/div[1]/input")));
-            driver.findElement(By.xpath("/html/body/div[1]/form/div[1]/input")).sendKeys(name);
-        }
+         //   System.out.println("**** Registration Page Object Parameter :"+ bookName);
+            WebPageFactory.wpf.RegistrationPage_Name.sendKeys(bookName);
+       }
         catch(Exception e){
-            System.out.println("Page Not Loaded  Exception");
-            driver.quit();
+            System.out.println("Book Name Not Loaded  Exception");
         }
     }
 
     public void EnterAuthorName(String author){
-        driver.findElement(By.xpath("/html/body/div[1]/form/div[2]/input")).sendKeys(author);
+        WebPageFactory.wpf.RegistrationPage_Author.sendKeys(author);
     }
     public void EnterPrice(String price){
-        driver.findElement(By.xpath("/html/body/div[1]/form/div[3]/input")).sendKeys(price);
+        WebPageFactory.wpf.RegistrationPage_Price.sendKeys(price);
     }
-    public void PressSubmitButton(){
-        driver.findElement(By.xpath("/html/body/div[1]/form/center/button")).click();
+    public void PressSubmitButton()throws InterruptedException{
+       WebPageFactory.wpf.RegistrationPage_SubmitButton.click();
+       Thread.sleep(3000);
+       WebPageFactory.wpf.AvailableBooksPage_Title.getText();
     }
-
-
 }

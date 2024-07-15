@@ -1,56 +1,31 @@
 package Runner;
-
+import TestCases.AvailableBooksEditTest;
 import Utility.PropertyFileHandler;
-import Utility.WebDriverHelper;
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.runner.RunWith;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InterruptedIOException;
+import org.openqa.selenium.WebDriver;
 import TestCases.BookRegisterTest;
+import TestCases.AddToMyBooksTest;
+import TestCases.AvailableBookDeleteTest;
 
-@RunWith(Cucumber.class)
-@CucumberOptions(features = {"src/test/java/FeatureFiles"},
-        plugin= {"pretty","html:target/cucumber.html","json:target/cucumber.json"},
-        glue = {"StepDef"})
+
 public class TestRunner {
-        public static Object WebDriverHelper ;
-        public static WebDriverHelper newHelper = new WebDriverHelper();
-        public static BookRegisterTest testBookReg= new BookRegisterTest();
+    // Project pre requisites
+           public static void main(String[] args) throws Throwable {
 
-        // Project pre requisites
-        @Before
-        public static void main(String[] args) throws Throwable {
-                System.out.println("Hi inside the runner!");
-                PropertyFileHandler.getPropertyFileHandler();
-                PropertyFileHandler.loadPropertyFile("src/test/resources/TestData/data.properties");
-                Utility.WebDriverHelper.startDriver("browser","url");
+               PropertyFileHandler.getPropertyFileHandler();
+               PropertyFileHandler.loadPropertyFile("src/test/resources/TestData/data.properties");
+               Utility.WebDriverHelper.startDriver("browser","url");
+               WebDriver driver= Utility.WebDriverHelper.getWebDriver();
 
-                //  Test cases goes here
-                //SignIn.TestCase1();
-            testBookReg.TestCaseNumber1();
+              //Run TEst cases
+               //BookRegisterTest.TestCaseNumber1();
+             //  AddToMyBooksTest.TestCaseNumber2();
+             //  AvailableBookDeleteTest.TestCaseNumber3();
+               AvailableBooksEditTest.TestCaseNumber4();
 
         }
         //Tear Down
-        @After
-        public void tearDownDriver(){
-                try{
-                    if(WebDriverHelper != null) {
-                        System.out.println("Test Suit Complete!");
-                        Thread.sleep(4000);
-                        Utility.WebDriverHelper.closeWebDriver();  //quit the driver
-                    }
-
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();  // Preserve the interrupt status
-                    System.err.println("Thread was interrupted, Failed to complete operation");
-                } catch (Exception e) {
-                    System.err.println("An error occurred: " + e.getMessage());
-                    e.printStackTrace();
-                }
+        public void tearDownDriver() throws InterruptedException {
+            System.out.println("Test Suit Complete!");
+            Thread.sleep(4000);
         }
 }

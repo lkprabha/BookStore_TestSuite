@@ -2,49 +2,45 @@ package StepDef;
 
 import PageObjects.AvailableBooksPageObject;
 import PageObjects.RegistrationPageObject;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
+
 
 
 public class BookRegisterStepDef {
 
     public static RegistrationPageObject registrationPageObject= new RegistrationPageObject();
-    public static AvailableBooksPageObject availablebokPageObject = new AvailableBooksPageObject();
+    public static AvailableBooksPageObject availableBookObject = new AvailableBooksPageObject();
 
-    @And("User click the Registration Tab")
-    public void userClickTheRegistrationPage() {
+    public void userClickNewRegisterTab() throws InterruptedException{
         registrationPageObject.NavigatePageBookRegister();
     }
 
-    @And("^User see the Registration page (.+)$")
-    public void userSeeTheRegistrationPageTitle(String tilte2)throws Throwable {
-        registrationPageObject.CheckTitle(tilte2);
+    public void userSeeTheRegistrationPageTitle(String title_RegisterPage)throws InterruptedException{
+        Thread.sleep(3000);
+        registrationPageObject.CheckTitle(title_RegisterPage);
     }
 
-    @And("^User enter the book Name (.+)$")
-    public void userEnterTheBookNameName(String name) {
-        registrationPageObject.EnterBook(name);
+    public void userEnterTheBookNameName(String bookName) {
+       // System.out.println("----Step Def name para :"+ bookName+"----------");
+        registrationPageObject.EnterBook(bookName);
     }
 
-    @And("^User enter name of the Author (.+)$")
-    public void userEneterNameOfTheAuthorAuthor(String author) {
+    public void userEnterAuthor(String author) {
         registrationPageObject.EnterAuthorName(author);
     }
 
-    @And("^User enter price of the book (.+)$")
     public void userEnterPriceOfTheBookPrice(String price) {
         registrationPageObject.EnterPrice(price);
     }
 
-    @And("User press Submit Button")
-    public void userPressSubmitButton() {
+    public void userPressSubmitButton() throws InterruptedException{
         registrationPageObject.PressSubmitButton();
     }
 
-    @Then("User sees the available books page (.+)")
-    public void userSeesTheAvailableBooksPageTitle(String title3) {
-        availablebokPageObject.CheckTitle(title3);
+    public void userSeesTheAvailableBooksPageTitle(String title_AvailableBookPage)throws InterruptedException {
+        Thread.sleep(3000);
+        availableBookObject.CheckTitle(title_AvailableBookPage);
     }
+
 
 
 }

@@ -1,19 +1,22 @@
 package TestCases;
 
 import StepDef.BookRegisterStepDef;
+import Utility.PropertyFileHandler;
+import Utility.TextFileHandler;
 
-import java.io.IOException;
+public class BookRegisterTest{
 
-public class BookRegisterTest {
     public static BookRegisterStepDef bookreg= new BookRegisterStepDef();
+
     public static void TestCaseNumber1() throws Throwable {
-        bookreg.userClickTheRegistrationPage();
-        bookreg.userSeeTheRegistrationPageTitle("title2");
-        bookreg.userEnterTheBookNameName("name");
-        bookreg.userEneterNameOfTheAuthorAuthor("author");
-        bookreg.userEnterPriceOfTheBookPrice("price");
+        String[] sequence = TextFileHandler.csvDataRead(PropertyFileHandler.readProperty("RegisterBookDataCsv"),5);
+        bookreg.userClickNewRegisterTab();
+        bookreg.userSeeTheRegistrationPageTitle(sequence[0]);
+        bookreg.userEnterTheBookNameName(sequence[1]);
+        bookreg.userEnterAuthor(sequence[2]);
+        bookreg.userEnterPriceOfTheBookPrice(sequence[3]);
         bookreg.userPressSubmitButton();
-        bookreg.userSeesTheAvailableBooksPageTitle("title3");
+        bookreg.userSeesTheAvailableBooksPageTitle(sequence[4]);
     }
 
 }
